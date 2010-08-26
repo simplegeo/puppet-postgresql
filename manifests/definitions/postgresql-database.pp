@@ -11,6 +11,7 @@ define postgresql::database(
   $encoding=false,
   $template="template1",
   $source=false, 
+  $compression="gzip",
   $overwrite=false) {
 
   $ownerstring = $owner ? {
@@ -21,6 +22,12 @@ define postgresql::database(
   $encodingstring = $encoding ? {
     false => "",
     default => "-E $encoding",
+  }
+
+  $decompress = $compression ? {
+    "raw" => "cat",
+    "gzip" => "zcat",
+    "bzip2" => "bzcat"
   }
 
   case $ensure {
@@ -55,9 +62,8 @@ define postgresql::database(
 
   # Import initial dump
   if $source {
-    # TODO: handle non-gziped files
     exec { "Import dump into $name postgres db":
-      command => "zcat ${source} | psql ${name}",
+      command => "${decompress} ${source} | psql ${name}",
       user => "postgres",
       onlyif => "test $(psql ${name} -c '\\dt' | wc -l) -eq 1",
       require => Exec["Create $name postgres db"],
