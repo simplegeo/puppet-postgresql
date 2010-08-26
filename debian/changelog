@@ -1,0 +1,5 @@
+puppet-postgresql (20100426-sg0) stable; urgency=low
+
+  * Debianized.
+
+ -- Ian Eure <ian@simplegeo.com>  Thu, 26 Aug 2010 13:44:10 -0700

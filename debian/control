@@ -1,0 +1,13 @@
+Source: puppet-postgresql
+Section: misc
+Priority: extra
+Maintainer: SimpleGeo Nerds <nerds@simplegeo.com>
+Uploaders: Ian Eure <ian@simplegeo.com>
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.8.4
+
+Package: puppet-module-postgresql
+Architecture: all
+Depends: ${misc:Depends}, puppet-common
+Description: Puppet module for configuring PostgreSQL.
+ This module allows you to configure PostgreSQL with Puppet.

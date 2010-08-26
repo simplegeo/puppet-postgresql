@@ -1,0 +1,7 @@
+manifests/*.pp usr/share/puppet/modules/postgresql/manifests
+
+manifests/definitions/*.pp usr/share/puppet/modules/postgresql/manifests/definitions
+
+manifests/classes/*.pp usr/share/puppet/modules/postgresql/manifests/classes
+
+templates/*.erb usr/share/puppet/modules/postgresql/templates
