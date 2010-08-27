@@ -66,11 +66,11 @@ define postgresql::database(
   # Import initial dump
   if $source {
     exec { "Import dump into $name postgres db":
-      command => "${decompress} ${source} | psql ${name}",
+      command => "${decompress} ${source} | psql -U ${owner} ${name}",
       path => "/bin:/usr/bin",
       user => "postgres",
       logoutput => true,
-      onlyif => "test $(psql -U $owner ${name} -c '\\dt' | wc -l) -eq 1",
+      onlyif => "test $(psql ${name} -c '\\dt' | wc -l) -eq 1",
       require => [Exec["Create $name postgres db"], Service["postgresql"]],
     }
   }
