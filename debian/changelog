@@ -1,3 +1,13 @@
+puppet-postgresql (20100426-sg5) lucid; urgency=low
+
+  [ Ian Eure ]
+  * Fix dependencies and paths for commands.
+  * Run the psql command to import DBs as the owner of the DB.
+
+  [ SimpleGeo Nerds ]
+
+ -- SimpleGeo Nerds <nerds@simplegeo.com>  Fri, 27 Aug 2010 20:51:08 +0000
+
 puppet-postgresql (20100426-sg4) lucid; urgency=low
 
   [ Ian Eure ]
