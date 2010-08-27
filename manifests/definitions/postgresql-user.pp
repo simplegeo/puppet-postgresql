@@ -44,34 +44,41 @@ define postgresql::user(
       # The createuser command always prompts for the password.
       # User with '-' like www-data must be inside double quotes
       exec { "Create postgres user $name":
+        path => "/bin:/usr/bin",
         command => $password ? {
           false => "psql ${connection} -c \"CREATE USER \\\"$name\\\" \" ",
           default => "psql ${connection} -c \"CREATE USER \\\"$name\\\" PASSWORD '$password'\" ",
         },
         user    => "postgres",
         unless  => "psql ${connection} -c '\\du' | egrep '^  *$name '",
-        require => User["postgres"],
+        require => [User["postgres"], Service["postgresql"]],
       }
 
       exec { "Set SUPERUSER attribute for postgres user $name":
+        path => "/bin:/usr/bin",
         command => "psql ${connection} -c 'ALTER USER \"$name\" $superusertext' ",
         user    => "postgres",
         unless  => "psql ${connection} -tc \"SELECT rolsuper FROM pg_roles WHERE rolname = '$name'\" |grep -q $(echo $superuser |cut -c 1)",
-        require => [User["postgres"], Exec["Create postgres user $name"]],
+        require => [User["postgres"], Exec["Create postgres user $name"],
+                    Service["postgresql"]],
       }
 
       exec { "Set CREATEDB attribute for postgres user $name":
+        path => "/bin:/usr/bin",
         command => "psql ${connection} -c 'ALTER USER \"$name\" $createdbtext' ",
         user    => "postgres",
         unless  => "psql ${connection} -tc \"SELECT rolcreatedb FROM pg_roles WHERE rolname = '$name'\" |grep -q $(echo $createdb |cut -c 1)",
-        require => [User["postgres"], Exec["Create postgres user $name"]],
+        require => [User["postgres"], Exec["Create postgres user $name"],
+                    Service["postgresql"]],
       }
 
       exec { "Set CREATEROLE attribute for postgres user $name":
+        path => "/bin:/usr/bin",
         command => "psql ${connection} -c 'ALTER USER \"$name\" $createroletext' ",
         user    => "postgres",
         unless  => "psql ${connection} -tc \"SELECT rolcreaterole FROM pg_roles WHERE rolname = '$name'\" |grep -q $(echo $createrole |cut -c 1)",
-        require => [User["postgres"], Exec["Create postgres user $name"]],
+        require => [User["postgres"], Exec["Create postgres user $name"],
+                    Service["postgresql"]],
       }
 
       if $password {
@@ -82,10 +89,12 @@ define postgresql::user(
 
         # change only if it's not the same password
         exec { "Change password for postgres user $name":
+          path => "/bin:/usr/bin",
           command => "psql ${connection} -c \"ALTER USER \\\"$name\\\" PASSWORD '$password' \"",
           user    => "postgres",
           unless  => "TMPFILE=$(mktemp /tmp/.pgpass.XXXXXX) && echo '${host}:${port}:template1:${name}:${pgpass}' > \$TMPFILE && PGPASSFILE=\$TMPFILE psql -h ${host} -p ${port} -U ${name} -c '\\q' template1 && rm -f \$TMPFILE",
-          require => [User["postgres"], Exec["Create postgres user $name"]],
+          require => [User["postgres"], Exec["Create postgres user $name"],
+                      Service["postgresql"]],
         }
       }
 
@@ -93,6 +102,8 @@ define postgresql::user(
 
     absent:  {
       exec { "Remove postgres user $name":
+        path => "/bin:/usr/bin",
+        require => Service["postgresql"],
         command => "psql ${connection} -c 'DROP USER \"$name\" ' ",
         user    => "postgres",
         onlyif  => "psql ${connection} -c '\\du' | grep '$name  *|'"
