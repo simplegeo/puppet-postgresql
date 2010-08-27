@@ -36,13 +36,15 @@ define postgresql::database(
         command => "/usr/bin/createdb $ownerstring $encodingstring $name -T $template",
         user => "postgres",
         unless => "/usr/bin/psql -l | grep '$name  *|'",
+        require => Service["postgresql"],
       }
     }
     absent:  {
       exec { "Remove $name postgres db":
         command => "/usr/bin/dropdb $name",
         onlyif => "/usr/bin/psql -l | grep '$name  *|'",
-        user => "postgres"
+        user => "postgres",
+        require => Service["postgresql"],
       }
     }
     default: {
@@ -57,6 +59,7 @@ define postgresql::database(
       onlyif => "/usr/bin/psql -l | grep '$name  *|'",
       user => "postgres",
       before => Exec["Create $name postgres db"],
+      require => Service["postgresql"],
     }
   }
 
@@ -64,9 +67,11 @@ define postgresql::database(
   if $source {
     exec { "Import dump into $name postgres db":
       command => "${decompress} ${source} | psql ${name}",
+      path => "/bin:/usr/bin",
       user => "postgres",
-      onlyif => "test $(psql ${name} -c '\\dt' | wc -l) -eq 1",
-      require => Exec["Create $name postgres db"],
+      logoutput => true,
+      onlyif => "test $(psql -U $owner ${name} -c '\\dt' | wc -l) -eq 1",
+      require => [Exec["Create $name postgres db"], Service["postgresql"]],
     }
   }
 }
