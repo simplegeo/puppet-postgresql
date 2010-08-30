@@ -1,3 +1,13 @@
+puppet-postgresql (20100426-sg6) lucid; urgency=low
+
+  [ Ian Eure ]
+  * Revert "Run the psql command to import DBs as the owner of the DB."
+    This reverts commit 11c2c2058d85ca4639bdb8cad140f3b9fe535509.
+
+  [ SimpleGeo Nerds ]
+
+ -- SimpleGeo Nerds <nerds@simplegeo.com>  Mon, 30 Aug 2010 18:31:08 +0000
+
 puppet-postgresql (20100426-sg5) lucid; urgency=low
 
   [ Ian Eure ]
