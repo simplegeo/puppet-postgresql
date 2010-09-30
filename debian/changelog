@@ -1,3 +1,9 @@
+puppet-postgresql (20100426-sg22) lucid; urgency=low
+
+  * UNRELEASED
+
+ -- SimpleGeo Nerds <nerds@simplegeo.com>  Thu, 30 Sep 2010 22:18:27 +0000
+
 puppet-postgresql (20100426-sg21) lucid; urgency=low
 
   * UNRELEASED
