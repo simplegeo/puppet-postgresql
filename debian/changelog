@@ -1,3 +1,12 @@
+puppet-postgresql (20100426-sg30) lucid; urgency=low
+
+  [ dsmith ]
+  * Trick puppet into executing the command
+
+  [ SimpleGeo Nerds ]
+
+ -- SimpleGeo Nerds <nerds@simplegeo.com>  Thu, 12 May 2011 16:31:19 +0000
+
 puppet-postgresql (20100426-sg29) lucid; urgency=low
 
   * UNRELEASED
