@@ -13,6 +13,7 @@ class postgresql {
     Ubuntu: {
       case $lsbdistcodename {
         lucid :  { include postgresql::ubuntu::v8-4 }
+        maverick :  { include postgresql::ubuntu::v8-4 }
         default: { fail "postgresql not available for ${operatingsystem}/${lsbdistcodename}"}
       }
     }
@@ -44,6 +45,7 @@ class postgresql::v8-4 {
     Ubuntu: {
       case $lsbdistcodename {
         lucid :  { include postgresql::ubuntu::v8-4 }
+        maverick :  { include postgresql::ubuntu::v8-4 }
         default: { fail "postgresql 8.4 not available for ${operatingsystem}/${lsbdistcodename}"}
       }
     }
