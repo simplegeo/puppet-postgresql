@@ -92,7 +92,7 @@ define postgresql::user(
           path => "/bin:/usr/bin",
           command => "psql ${connection} -c \"ALTER USER \\\"$name\\\" PASSWORD '$password' \"",
           user    => "postgres",
-          unless  => "TMPFILE=$(mktemp /tmp/.pgpass.XXXXXX) && echo '${host}:${port}:template1:${name}:${pgpass}' > \$TMPFILE && PGPASSFILE=\$TMPFILE psql -h ${host} -p ${port} -U ${name} -c '\\q' template1 && rm -f \$TMPFILE",
+          unless  => ": && TMPFILE=$(mktemp /tmp/.pgpass.XXXXXX) && echo '${host}:${port}:template1:${name}:${pgpass}' > \$TMPFILE && PGPASSFILE=\$TMPFILE psql -h ${host} -p ${port} -U ${name} -c '\\q' template1 && rm -f \$TMPFILE",
           require => [User["postgres"], Exec["Create postgres user $name"],
                       Service["postgresql"]],
         }
