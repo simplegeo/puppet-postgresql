@@ -1,3 +1,12 @@
+puppet-postgresql (20100426-sg33) lucid; urgency=low
+
+  [ Paul Lathrop ]
+  * Fix broken path specifications.
+
+  [ SimpleGeo Nerds ]
+
+ -- SimpleGeo Nerds <nerds@simplegeo.com>  Mon, 16 May 2011 23:55:18 +0000
+
 puppet-postgresql (20100426-sg32) lucid; urgency=low
 
   [ Jeremy Grosser ]
