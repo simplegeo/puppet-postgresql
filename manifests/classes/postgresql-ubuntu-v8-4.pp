@@ -30,14 +30,6 @@ class postgresql::ubuntu::v8-4 inherits postgresql::ubuntu::base {
         ensure  => present,
       }
   
-      Package["postgresql"] {
-        name => "postgresql-8.4",
-      }
-
-      Service["postgresql"] {
-        name => "postgresql-8.4"
-      }
-   
       # re-create the cluster in UTF8
       exec {"pg_createcluster in utf8" : 
         command => "pg_dropcluster --stop 8.4 main && pg_createcluster -e UTF8 -d ${data_dir}/8.4/main --start 8.4 main",
@@ -60,14 +52,6 @@ class postgresql::ubuntu::v8-4 inherits postgresql::ubuntu::base {
         ensure  => present,
       }
   
-      Package["postgresql"] {
-        name => "postgresql-8.4",
-      }
-
-      Service["postgresql"] {
-        name => "postgresql-8.4"
-      }
-   
       # re-create the cluster in UTF8
       exec {"pg_createcluster in utf8" : 
         command => "pg_dropcluster --stop 8.4 main && pg_createcluster -e UTF8 -d ${data_dir}/8.4/main --start 8.4 main",
