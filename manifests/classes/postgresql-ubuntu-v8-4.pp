@@ -40,9 +40,11 @@ class postgresql::ubuntu::v8-4 inherits postgresql::ubuntu::base {
       }
 
       # Make sure puppet can find the service.
-      Service['postgresql'] {
-        name  => 'postgresql-8.4',
-        alias => 'postgresql'
+      file {
+        '/etc/init.d/postgresql':
+          ensure  => symlink,
+          target  => '/etc/init.d/postgresql-8.4',
+          require => Package['postgresql'];
       }
     }
 
