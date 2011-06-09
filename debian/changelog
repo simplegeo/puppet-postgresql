@@ -1,3 +1,12 @@
+puppet-postgresql (20100426-sg37) lucid; urgency=low
+
+  [ Paul Lathrop ]
+  * Turns out they fixed the init script in maverick
+
+  [ SimpleGeo Nerds ]
+
+ -- SimpleGeo Nerds <nerds@simplegeo.com>  Thu, 09 Jun 2011 22:24:40 +0000
+
 puppet-postgresql (20100426-sg36) lucid; urgency=low
 
   [ Paul Lathrop ]
