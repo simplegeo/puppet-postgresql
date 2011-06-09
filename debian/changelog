@@ -1,3 +1,12 @@
+puppet-postgresql (20100426-sg36) lucid; urgency=low
+
+  [ Paul Lathrop ]
+  * Try a different way of fixing this since puppet is acting weird.
+
+  [ SimpleGeo Nerds ]
+
+ -- SimpleGeo Nerds <nerds@simplegeo.com>  Thu, 09 Jun 2011 22:10:40 +0000
+
 puppet-postgresql (20100426-sg35) lucid; urgency=low
 
   [ Paul Lathrop ]
