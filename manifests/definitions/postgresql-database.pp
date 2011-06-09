@@ -69,7 +69,6 @@ define postgresql::database(
       command => "${decompress} ${source} | psql -U postgres ${name}",
       path => "/bin:/usr/bin",
       user => "postgres",
-      timeout => "-1",
       onlyif => "test $(psql -U $owner ${name} -c '\\dt' | wc -l) -eq 1",
       require => [Exec["Create $name postgres db"], Service["postgresql"]],
     }
