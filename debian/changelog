@@ -1,3 +1,12 @@
+puppet-postgresql (20100426-sg38) lucid; urgency=low
+
+  [ Paul Lathrop ]
+  * use -U where appropriate
+
+  [ SimpleGeo Nerds ]
+
+ -- SimpleGeo Nerds <nerds@simplegeo.com>  Thu, 09 Jun 2011 23:17:39 +0000
+
 puppet-postgresql (20100426-sg37) lucid; urgency=low
 
   [ Paul Lathrop ]
