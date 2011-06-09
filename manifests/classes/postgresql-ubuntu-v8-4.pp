@@ -18,7 +18,7 @@ class postgresql::ubuntu::v8-4 inherits postgresql::ubuntu::base {
   }
 
   case $lsbdistcodename {
-    "lucid" : {
+    /(lucid|maverick)/ : {
       package {[
         "libpq-dev",
         "libpq5",
@@ -29,36 +29,20 @@ class postgresql::ubuntu::v8-4 inherits postgresql::ubuntu::base {
         ]:
         ensure  => present,
       }
-  
-      # re-create the cluster in UTF8
-      exec {"pg_createcluster in utf8" : 
-        command => "pg_dropcluster --stop 8.4 main && pg_createcluster -e UTF8 -d ${data_dir}/8.4/main --start 8.4 main",
-        path => "/bin:/usr/bin",
-        onlyif => "test \$(su -c \"psql -tA -c 'SELECT count(*)=3 AND min(encoding)=0 AND max(encoding)=0 FROM pg_catalog.pg_database;'\" postgres) = t",
-        user => root,
-        timeout => 60,
-      }
-    }
 
-    "maverick" : {
-      package {[
-        "libpq-dev",
-        "libpq5",
-        "postgresql-client-8.4",
-        "postgresql-common",
-        "postgresql-client-common",
-        "postgresql-contrib-8.4"
-        ]:
-        ensure  => present,
-      }
-  
       # re-create the cluster in UTF8
-      exec {"pg_createcluster in utf8" : 
+      exec {"pg_createcluster in utf8" :
         command => "pg_dropcluster --stop 8.4 main && pg_createcluster -e UTF8 -d ${data_dir}/8.4/main --start 8.4 main",
         path => "/bin:/usr/bin",
         onlyif => "test \$(su -c \"psql -tA -c 'SELECT count(*)=3 AND min(encoding)=0 AND max(encoding)=0 FROM pg_catalog.pg_database;'\" postgres) = t",
         user => root,
         timeout => 60,
+      }
+
+      # Make sure puppet can find the service.
+      Service['postgresql'] {
+        name  => 'postgresql-8.4',
+        alias => 'postgresql'
       }
     }
 
