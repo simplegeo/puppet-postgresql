@@ -70,7 +70,7 @@ define postgresql::database(
       path => "/bin:/usr/bin",
       user => "postgres",
       onlyif => "test $(psql -U $owner ${name} -c '\\dt' | wc -l) -eq 1",
-      require => ["Create $name postgres db"],
+      require => Exec["Create $name postgres db"],
     }
   }
 }
