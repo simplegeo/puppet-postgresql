@@ -59,8 +59,7 @@ define postgresql::user(
         command => "psql ${connection} -c 'ALTER USER \"$name\" $superusertext' ",
         user    => "postgres",
         unless  => "psql ${connection} -tc \"SELECT rolsuper FROM pg_roles WHERE rolname = '$name'\" |grep -q $(echo $superuser |cut -c 1)",
-        require => [User["postgres"], Exec["Create postgres user $name"],
-                    Service["postgresql"]],
+        require => [Exec["Create postgres user $name"], Service["postgresql"]],
       }
 
       exec { "Set CREATEDB attribute for postgres user $name":
@@ -68,8 +67,7 @@ define postgresql::user(
         command => "psql ${connection} -c 'ALTER USER \"$name\" $createdbtext' ",
         user    => "postgres",
         unless  => "psql ${connection} -tc \"SELECT rolcreatedb FROM pg_roles WHERE rolname = '$name'\" |grep -q $(echo $createdb |cut -c 1)",
-        require => [User["postgres"], Exec["Create postgres user $name"],
-                    Service["postgresql"]],
+        require => [Exec["Create postgres user $name"], Service["postgresql"]],
       }
 
       exec { "Set CREATEROLE attribute for postgres user $name":
@@ -77,8 +75,7 @@ define postgresql::user(
         command => "psql ${connection} -c 'ALTER USER \"$name\" $createroletext' ",
         user    => "postgres",
         unless  => "psql ${connection} -tc \"SELECT rolcreaterole FROM pg_roles WHERE rolname = '$name'\" |grep -q $(echo $createrole |cut -c 1)",
-        require => [User["postgres"], Exec["Create postgres user $name"],
-                    Service["postgresql"]],
+        require => [Exec["Create postgres user $name"], Service["postgresql"]],
       }
 
       if $password {
@@ -92,8 +89,7 @@ define postgresql::user(
           path => ["/bin", "/usr/bin"],
           command => "psql ${connection} -c \"ALTER USER \\\"$name\\\" PASSWORD '$password' \"",
           user    => "postgres",
-          require => [User["postgres"], Exec["Create postgres user $name"],
-                      Service["postgresql"]],
+          require => [Exec["Create postgres user $name"], Service["postgresql"]],
         }
       }
 
