@@ -1,3 +1,12 @@
+puppet-postgresql (20100426-sg41) lucid; urgency=low
+
+  [ dsmith ]
+  * Removed Exec when I should not have
+
+  [ SimpleGeo Nerds ]
+
+ -- SimpleGeo Nerds <nerds@simplegeo.com>  Wed, 15 Jun 2011 18:59:40 +0000
+
 puppet-postgresql (20100426-sg40) lucid; urgency=low
 
   [ dsmith ]
