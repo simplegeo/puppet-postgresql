@@ -1,3 +1,13 @@
+puppet-postgresql (20100426-sg40) lucid; urgency=low
+
+  [ dsmith ]
+  * Cleaning up require parameters to help track down a cyclical
+    dependency
+
+  [ SimpleGeo Nerds ]
+
+ -- SimpleGeo Nerds <nerds@simplegeo.com>  Wed, 15 Jun 2011 18:44:40 +0000
+
 puppet-postgresql (20100426-sg39) lucid; urgency=low
 
   [ Paul Lathrop ]
