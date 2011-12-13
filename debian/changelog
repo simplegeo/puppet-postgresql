@@ -1,3 +1,9 @@
+puppet-postgresql (20100426-sg82) maverick; urgency=low
+
+  * UNRELEASED
+
+ -- SimpleGeo Nerds <nerds@simplegeo.com>  Tue, 13 Dec 2011 17:10:41 +0000
+
 puppet-postgresql (20100426-sg81) maverick; urgency=low
 
   * UNRELEASED
